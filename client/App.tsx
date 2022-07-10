@@ -1,118 +1,69 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * Generated with the TypeScript template
- * https://github.com/react-native-community/react-native-template-typescript
- *
- * @format
- */
+/* eslint-disable quotes */
+import axios from "axios";
+import React, {FC, useEffect, useState} from "react";
+import {Image, Pressable, RefreshControl, ScrollView, Text, View} from "react-native";
+import {IUser} from './src/models/IUser';
+import {createStackNavigator} from "@react-navigation/stack";
+import {NavigationContainer} from "@react-navigation/native";
 
-import React, {type PropsWithChildren} from 'react';
-import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  useColorScheme,
-  View,
-} from 'react-native';
+const Stack = createStackNavigator()
 
-import {
-  Colors,
-  DebugInstructions,
-  Header,
-  LearnMoreLinks,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
-
-const Section: React.FC<
-  PropsWithChildren<{
-    title: string;
-  }>
-> = ({children, title}) => {
-  const isDarkMode = useColorScheme() === 'dark';
-  return (
-    <View style={styles.sectionContainer}>
-      <Text
-        style={[
-          styles.sectionTitle,
-          {
-            color: isDarkMode ? Colors.white : Colors.black,
-          },
-        ]}>
-        {title}
-      </Text>
-      <Text
-        style={[
-          styles.sectionDescription,
-          {
-            color: isDarkMode ? Colors.light : Colors.dark,
-          },
-        ]}>
-        {children}
-      </Text>
-    </View>
-  );
-};
-
-const App = () => {
-  const isDarkMode = useColorScheme() === 'dark';
-
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
-  };
-
-  return (
-    <SafeAreaView style={backgroundStyle}>
-      <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
-      <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
-        style={backgroundStyle}>
-        <Header />
-        <View
-          style={{
-            backgroundColor: isDarkMode ? Colors.black : Colors.white,
-          }}>
-          <Section title="Step One">
-            Edit <Text style={styles.highlight}>App.tsx</Text> to change this
-            screen and then come back to see your edits.
-          </Section>
-          <Section title="See Your Changes">
-            <ReloadInstructions />
-          </Section>
-          <Section title="Debug">
-            <DebugInstructions />
-          </Section>
-          <Section title="Learn More">
-            Read the docs to discover what to do next:
-          </Section>
-          <LearnMoreLinks />
+const ScreenA: FC = ({navigation}) => {
+    return (
+        <View>
+            <Text style={{fontSize: 56, color: 'red'}}>Hello</Text>
+            <Pressable onPress={() => navigation.navigate('ScreenB')}>
+                <Text style={{fontSize: 60, color: 'black'}}>Go to B</Text>
+            </Pressable>
         </View>
-      </ScrollView>
-    </SafeAreaView>
-  );
+    )
+}
+
+const ScreenB: FC = () => {
+    const [users, setUsers] = useState<IUser[]>([])
+    const [isRefreshing, setIsRefreshing] = useState(false)
+
+    useEffect(() => {
+        setIsRefreshing(true)
+        const fetchUsers = async () => {
+            const {data} = await axios.get<IUser[]>('https://nest1hosting.herokuapp.com/api/user')
+            setUsers(data)
+        };
+        fetchUsers()
+        setIsRefreshing(false)
+    }, [])
+
+    return (
+        <View>
+            <ScrollView
+                refreshControl={
+                    <RefreshControl refreshing={isRefreshing}/>
+                }
+            >
+                {users.map(user => (
+                    <View>
+                        <Text style={{color: 'white', fontSize: 32}} key={user._id}>{user.username}</Text>
+                        {user.posts.map(post => (
+                            <Image key={post._id} style={{width: 400, height: 200}} source={{uri: post.image_url}}/>
+                        ))}
+                    </View>
+                ))}
+            </ScrollView>
+        </View>
+    );
+}
+
+
+const App: FC = () => {
+    return (
+        <NavigationContainer>
+            <Stack.Navigator>
+                <Stack.Screen name={'ScreenA'} component={ScreenA}/>
+                <Stack.Screen name={'ScreenB'} component={ScreenB}/>
+            </Stack.Navigator>
+        </NavigationContainer>
+    )
 };
 
-
-const styles = StyleSheet.create({
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
-  },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-  },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-  },
-  highlight: {
-    fontWeight: '700',
-  },
-});
 
 export default App;
