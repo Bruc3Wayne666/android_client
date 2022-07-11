@@ -18,6 +18,7 @@ export const InputContainer: FC<InputContainerProps> = ({email, password, setEma
                 onChange={value => setEmail(value)}
             />
             <TextInput
+                textContentType={'password'}
                 placeholder={'PASSWORD'}
                 style={style.input}
                 value={password}
@@ -34,13 +35,14 @@ const style = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'space-evenly',
         height: '80%',
-        fontSize: 30
     },
     input: {
         backgroundColor: '#222',
         borderColor: 'white',
         borderWidth: 2,
         borderRadius: 16,
-        width: '80%'
+        width: '80%',
+        fontSize: 22,
+        textAlign: 'center'
     },
 })
