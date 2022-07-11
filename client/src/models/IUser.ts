@@ -5,4 +5,5 @@ export interface IUser {
     email: string;
     username:string;
     posts: IPost[];
+    profileImage?: string;
 }
