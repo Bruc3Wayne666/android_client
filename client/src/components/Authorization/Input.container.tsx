@@ -18,7 +18,6 @@ export const InputContainer: FC<InputContainerProps> = ({email, password, setEma
                 onChange={value => setEmail(value)}
             />
             <TextInput
-                textContentType={'password'}
                 placeholder={'PASSWORD'}
                 style={style.input}
                 value={password}

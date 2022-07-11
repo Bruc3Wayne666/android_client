@@ -1,12 +1,11 @@
-/* eslint-disable quotes */
 import axios from "axios";
 import React, {FC, useEffect, useState} from "react";
 import {Button, Image, Pressable, RefreshControl, ScrollView, Text, View} from "react-native";
 import {IUser} from './src/models/IUser';
 import {createStackNavigator} from "@react-navigation/stack";
 import {NavigationContainer} from "@react-navigation/native";
-import {AuthorizationScreen} from "./src/screens/Authorization.screen";
 import {Feed} from "./src/screens/Feed.screen";
+import {AuthorizationScreen} from "./src/screens/Authorization.screen";
 
 const Stack = createStackNavigator()
 
