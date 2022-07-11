@@ -13,11 +13,6 @@ const ScreenA: FC<any> = ({navigation}) => {
     return (
         <View>
             <Text style={{fontSize: 56, color: 'red'}}>Hello</Text>
-            {/*<Pressable onPress={() => navigation.navigate('ScreenB')}>*/}
-            {/*    <Text style={{fontSize: 60, color: 'black'}}>Go to B</Text>*/}
-            {/*</Pressable>*/}
-            {/*<Image source={spinner}/>*/}
-            {/*<Spinner />*/}
             <Button onPress={() => navigation.navigate('ScreenB')} title={'On B'}/>
         </View>
     )

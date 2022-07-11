@@ -1,5 +1,5 @@
 import React, {FC, useState} from "react";
-import {StyleSheet, View} from "react-native";
+import {StyleSheet, View, Alert} from "react-native";
 import {SignInBtn, SignIUpBtn} from "../components/Authorization/Auth.buttons";
 import {InputContainer} from "../components/Authorization/Input.container";
 
@@ -7,8 +7,14 @@ export const AuthorizationScreen: FC<any> = ({navigation}) => {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
 
-    const handlePress = () => {
-        navigation.navigate('Feed')
+    const handlePress = async () => {
+        try {
+            await AsyncStorage.
+            navigation.navigate('Feed')
+        } catch (e) {
+            Alert.alert('Loh')
+        }
+        // navigation.navigate('Feed')
     }
 
     return (
