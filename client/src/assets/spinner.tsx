@@ -1,7 +1,6 @@
 import * as React from "react"
 import Svg, { Circle } from "react-native-svg"
 import {FC} from "react";
-/* SVGR has dropped some elements not supported by react-native-svg: animate */
 
 const Spinner: FC<any> = (props: any) => (
     <Svg

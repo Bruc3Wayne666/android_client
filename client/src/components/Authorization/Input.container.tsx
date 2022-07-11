@@ -15,13 +15,13 @@ export const InputContainer: FC<InputContainerProps> = ({email, password, setEma
                 placeholder={'EMAIL'}
                 style={style.input}
                 value={email}
-                onChange={value => setEmail(value)}
+                onChangeText={text => setEmail(text)}
             />
             <TextInput
                 placeholder={'PASSWORD'}
                 style={style.input}
                 value={password}
-                onChange={value => setPassword(value)}
+                onChangeText={text => setPassword(text)}
             />
         </View>
     )
