@@ -11,3 +11,15 @@ export const fetchPosts = createAsyncThunk(
       }
   }
 )
+
+
+export const post = createAsyncThunk(
+  'post',
+  async ({token, title, text}: {token: string, title: string, text: string}, {rejectWithValue}) => {
+    try {
+      return await ApiService.post({ token, title, text })
+    } catch (e) {
+      return rejectWithValue('Couldn\'t create post.')
+    }
+  }
+)

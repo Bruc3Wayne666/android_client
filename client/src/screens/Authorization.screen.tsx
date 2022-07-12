@@ -1,5 +1,5 @@
 import React, { FC, useState } from "react";
-import { StyleSheet, View, Alert, Text } from "react-native";
+import { StyleSheet, View, Alert, Text, ImageBackground } from "react-native";
 import { SignInBtn, SignIUpBtn } from "../components/Authorization/Auth.buttons";
 import { InputContainer } from "../components/Authorization/Input.container";
 import { useAppDispatch, useAppSelector } from "../hooks/redux";
@@ -23,7 +23,7 @@ export const AuthorizationScreen: FC<any> = () => {
   };
 
   return (
-    <View style={style.screen}>
+    <ImageBackground source={require('../assets/createPost/background.png')} style={style.screen}>
       {isLoading && <Text style={{fontSize: 42, color: 'white'}}>Loading...</Text>}
       <View style={style.form}>
         <InputContainer
@@ -37,7 +37,7 @@ export const AuthorizationScreen: FC<any> = () => {
           <SignIUpBtn handlePress={handlePress} />
         </View>
       </View>
-    </View>
+    </ImageBackground>
   );
 };
 

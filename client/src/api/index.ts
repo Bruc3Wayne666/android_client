@@ -20,4 +20,18 @@ export class ApiService {
     });
     return data;
   }
+
+  static async post({ token, title, text }: { token: string, title: string, text: string }): Promise<IPost> {
+    const formData = new FormData();
+    formData.append("title", title);
+    formData.append("text", text);
+    const { data } = await axios.post<IPost>(`${API_URL}/post`, formData,
+      {
+        headers: {
+          "Content-Type": "multipart/form-data",
+          Authorization: `Bearer ${token}`,
+        },
+      });
+    return data;
+  }
 }

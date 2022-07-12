@@ -3,7 +3,7 @@ import { Provider } from "react-redux";
 import { setupStore } from "./src/store/store";
 import { MainContainer } from "./src/screens/MainContainer";
 import { NavigationContainer } from "@react-navigation/native";
-import Spinner from "./src/assets/spinner";
+import { LogBox } from "react-native";
 
 
 // const ScreenA: FC<any> = ({ navigation }) => {
@@ -14,6 +14,11 @@ import Spinner from "./src/assets/spinner";
 //     </View>
 //   );
 // };
+
+
+LogBox.ignoreLogs([
+  "exported from 'deprecated-react-native-prop-types'.",
+])
 
 
 const store = setupStore();

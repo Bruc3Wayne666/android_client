@@ -5,17 +5,17 @@ import Icon from "react-native-vector-icons/FontAwesome5"
 
 // Should be post button (not camera)
 
-interface CameraBtnProps {
+interface CreatePostBtnProps {
   onPress: () => void;
 }
 
-export const CameraButton: FC<CameraBtnProps> = ({onPress}) => {
+export const CreatePostButton: FC<CreatePostBtnProps> = ({onPress}) => {
   return (
     <TouchableOpacity
       onPress={onPress}
       style={style.button}
     >
-      <Icon name={'camera'} size={30}/>
+      <Icon name={'pen'} size={30}/>
     </TouchableOpacity>
   )
 }
