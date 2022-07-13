@@ -5,10 +5,11 @@ import Icon from "react-native-vector-icons/AntDesign";
 import CommentIcon from "react-native-vector-icons/MaterialCommunityIcons";
 
 interface IPostCardProps {
+  handleDelete?: (v: string) => void;
   post: IPost;
 }
 
-export const PostCard: FC<IPostCardProps> = ({ post }) => {
+export const PostCard: FC<IPostCardProps> = ({ handleDelete, post }) => {
 
   return (
     <View style={style.card}>
@@ -50,7 +51,9 @@ export const PostCard: FC<IPostCardProps> = ({ post }) => {
         <TouchableOpacity>
           <CommentIcon name={"comment"} size={20} color={"#888"} />
         </TouchableOpacity>
-        <TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => {handleDelete(post._id)}}
+        >
           <Icon name={"delete"} size={20} color={"red"} />
         </TouchableOpacity>
       </View>

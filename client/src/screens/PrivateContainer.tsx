@@ -32,7 +32,8 @@ const DrawerMenuHeader: FC<DrawerMenuHeaderProps> = ({ user, handlePress }) => {
         style={style.drawerMenuHeaderInfo}
       >
         {/*<Text style={style.drawerMenuHeaderInfoText}>Ayrat</Text>*/}
-        <Text style={style.drawerMenuHeaderInfoText}>{user.username}</Text>
+        <Text style={style.drawerMenuHeaderInfoText}>{user?.username}</Text>
+        <Text>(Tap to see more)</Text>
       </View>
     </Pressable>
   );
@@ -123,6 +124,15 @@ const style = StyleSheet.create({
     height: 120,
     top: 0,
     padding: 8,
+    paddingLeft: 14,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5
   },
   drawerMenuHeaderImage: {
     width: 80,
@@ -131,8 +141,8 @@ const style = StyleSheet.create({
     // flex: 1,
   },
   drawerMenuHeaderInfo: {
-    // borderWidth: 1,
-    // borderColor: 'white',
+    flex: 1,
+    alignItems: 'center',
   },
   drawerMenuHeaderInfoText: {
     fontSize: 32,

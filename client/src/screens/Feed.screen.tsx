@@ -20,7 +20,7 @@ export const Feed: FC<any> = ({ navigation }) => {
   return (
     <View style={style.screen}>
       {isLoading
-        ? <Loading />
+        ? <Loading action={'Welcome'}/>
         : <>
           <ScrollView>
             <PostsContainer posts={posts} />

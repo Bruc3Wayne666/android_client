@@ -5,8 +5,8 @@ import { IPost } from "../../models/IPost";
 import { PostCard } from "../Post/Post.card";
 import { API_URL } from "@env";
 import axios from "axios";
-import { CreatePostButton } from "../CreatePost/CreatePost.button";
 import { Loading } from "../Loading/Loading";
+import { useActions } from "../../hooks/useActions";
 
 
 interface ProfileCardProps {
@@ -17,6 +17,7 @@ interface ProfileCardProps {
 export const ProfileCard: FC<ProfileCardProps> = ({ token, user }) => {
   const [posts, setPosts] = useState<IPost[]>([]);
   const [isLoading, setIsLoading] = useState();
+  const { deletePost } = useActions()
 
   const fetchUsersPosts = async (token: string, user: string) => {
     const { data } = await axios.get<IPost[]>(`${API_URL}/user/${user}/posts`, {
@@ -28,22 +29,30 @@ export const ProfileCard: FC<ProfileCardProps> = ({ token, user }) => {
     setIsLoading(false);
   };
 
+  const handleDelete = (id: string) => {
+    deletePost({id, token})
+  }
+
   useEffect(() => {
     setIsLoading(true);
     fetchUsersPosts(token, user._id);
   }, []);
 
-  return isLoading ? <Loading /> : (
+  return isLoading ? <Loading action={'Wait for a while'}/> : (
     <ScrollView
       style={style.body}
     >
       <Image style={style.backImg} source={require("../../assets/img_background.png")} />
       <View style={style.infoBlock}>
         <Image style={style.profileImg} source={require("../../assets/img.png")} />
-        <Text style={style.infoUsername}>{user.username}</Text>
+        <Text style={style.infoUsername}>{user?.username}</Text>
       </View>
       {posts.map(post => (
-        <PostCard key={post._id} post={post} />
+        <PostCard
+          key={post._id}
+          handleDelete={handleDelete}
+          post={post}
+        />
       ))}
     </ScrollView>
   );
@@ -69,5 +78,6 @@ const style = StyleSheet.create({
     height: 120,
     borderRadius: 60,
     marginTop: -50,
+    marginBottom: 20
   },
 });
