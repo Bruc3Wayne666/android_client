@@ -24,3 +24,15 @@ export const post = createAsyncThunk(
     }
   }
 )
+
+
+export const deletePost = createAsyncThunk(
+  'post/delete',
+  async ({id, token}: {id: string, token: string}, {rejectWithValue}) => {
+    try {
+      return await ApiService.delete({id, token})
+    } catch (e) {
+      return rejectWithValue('Couldn\'t delete post.')
+    }
+  }
+)

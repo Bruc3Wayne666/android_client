@@ -1,19 +1,20 @@
 import axios from "axios";
 import { API_URL } from "@env";
 import { IPost } from "../models/IPost";
+import { AuthPayloadType } from "../store/reducers/auth/authSlice";
 
 
 export class ApiService {
-  static async login(email: string, password: string): Promise<string> {
-    const { data } = await axios.post<string>(`${API_URL}/auth/login`, {
+  static async login(email: string, password: string): Promise<AuthPayloadType> {
+    const { data } = await axios.post<AuthPayloadType>(`${API_URL}/auth/login`, {
       email,
       password,
     });
     return data;
   }
 
-  static async register(username: string, email: string, password: string): Promise<string> {
-    const {data} = await axios.post<string>(`${API_URL}/auth/register`, {
+  static async register(username: string, email: string, password: string): Promise<AuthPayloadType> {
+    const {data} = await axios.post<AuthPayloadType>(`${API_URL}/auth/register`, {
       username,
       email,
       password
@@ -30,6 +31,15 @@ export class ApiService {
     return data;
   }
 
+  // static async fetchUsersPosts(token: string, user: string): Promise<IPost[]> {
+  //   const { data } = await axios.get<IPost[]>(`${API_URL}/user/${user}/posts`, {
+  //     headers: {
+  //       Authorization: `Bearer ${token}`,
+  //     },
+  //   });
+  //   return data;
+  // }
+
   static async post({ token, title, text }: { token: string, title: string, text: string }): Promise<IPost> {
     const formData = new FormData();
     formData.append("title", title);
@@ -41,6 +51,15 @@ export class ApiService {
           Authorization: `Bearer ${token}`,
         },
       });
+    return data;
+  }
+
+  static async delete({id, token}: {id: string, token: string}): Promise<IPost> {
+    const { data } = await axios.delete<IPost>(`${API_URL}/post/${id}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
     return data;
   }
 }

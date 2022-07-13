@@ -6,21 +6,32 @@ import { PostContent } from "../components/CreatePost/PostContent";
 import { PostButton } from "../components/CreatePost/PostButton";
 import { useAppSelector } from "../hooks/redux";
 import { useActions } from "../hooks/useActions";
+import Icon from "react-native-vector-icons/AntDesign"
+import { useNavigation } from "@react-navigation/native";
 
-export const CreatePostScreen: FC<any> = ({ navigation }) => {
+
+export const CreatePostScreen: FC<any> = () => {
   const { post } = useActions()
   const { token } = useAppSelector(state => state.authReducer)
   const [text, setText] = useState('')
   const [title, setTitle] = useState('')
+  const { goBack } = useNavigation()
 
+
+  const cleanForm = () => {
+    setText('')
+    setTitle('')
+  }
 
   const cancel = () => {
-    navigation.goBack();
+    cleanForm();
+    goBack();
   };
 
   const create = () => {
     post({token, title, text})
-    navigation.goBack()
+    cleanForm()
+    goBack()
   }
 
   const handleChangeText = (text: string) => {
@@ -54,7 +65,7 @@ export const CreatePostScreen: FC<any> = ({ navigation }) => {
       <View
         style={style.contacts}
       >
-        <Text style={style.contactsText}>GitHub: @Bruc3Wayne666</Text>
+        <Text style={style.contactsText}><Icon name={'github'} size={20}/> @Bruc3Wayne666</Text>
       </View>
 
 

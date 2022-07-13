@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { IPost } from "../../../models/IPost";
-import { fetchPosts, post } from "./postAction";
+import { deletePost, fetchPosts, post } from "./postAction";
 
 interface InitialState {
   posts: IPost[];
@@ -33,6 +33,9 @@ export const postSlice = createSlice({
     },
     [post.fulfilled.type]: (state, action: PayloadAction<IPost>) => {
       state.posts.push(action.payload)
+    },
+    [deletePost.fulfilled.type]: (state, action: PayloadAction<IPost>) => {
+      state.posts.filter(post => post._id !== action.payload._id)
     }
   }
 })
