@@ -16,7 +16,13 @@ const initialState: IAuthState = {
 export const authSlice = createSlice({
   name: 'auth',
   initialState,
-  reducers: {},
+  reducers: {
+    logout(state) {
+      state.isLoading = false
+      state.error = ''
+      state.token = ''
+    }
+  },
   extraReducers: {
     [login.pending.type]: state => {
       state.isLoading = true
@@ -33,4 +39,5 @@ export const authSlice = createSlice({
   }
 })
 
+export const authActions = authSlice.actions
 export default authSlice.reducer

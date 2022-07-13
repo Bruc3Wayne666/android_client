@@ -32,7 +32,6 @@
     "react-native-screens": "^3.15.0",
     "react-native-svg": "^12.3.0",
     "react-native-vector-icons": "^9.2.0",
-    "react-native-vision-camera": "^2.13.5",
     "react-redux": "^8.0.2"
   },
   "devDependencies": {

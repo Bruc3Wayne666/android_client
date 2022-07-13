@@ -12,6 +12,15 @@ export class ApiService {
     return data;
   }
 
+  static async register(username: string, email: string, password: string): Promise<string> {
+    const {data} = await axios.post<string>(`${API_URL}/auth/register`, {
+      username,
+      email,
+      password
+    })
+    return data
+  }
+
   static async fetchPosts(token: string): Promise<IPost[]> {
     const { data } = await axios.get<IPost[]>(`${API_URL}/post`, {
       headers: {

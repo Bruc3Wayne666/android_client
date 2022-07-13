@@ -5,6 +5,7 @@ export const fetchPosts = createAsyncThunk(
   'post/fetch',
   async (token: string, {rejectWithValue}) => {
       try {
+        console.log('==================');
         return await ApiService.fetchPosts(token)
       } catch (e) {
         return rejectWithValue('Couldn\'t fetch posts.')

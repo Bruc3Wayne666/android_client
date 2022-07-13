@@ -2,27 +2,21 @@ import React, {FC} from "react";
 import {Pressable, StyleSheet, Text} from "react-native";
 
 interface IBtnProps {
+    authType: string;
     handlePress: () => void;
 }
 
-export const SignInBtn: FC<IBtnProps> = ({handlePress}) => {
+export const SignBtn: FC<IBtnProps> = ({authType, handlePress}) => {
     return (
         <Pressable
             onPress={handlePress}
-            style={style.login}
+            style={authType === 'login' ? style.login : style.register}
         >
-            <Text style={style.text}>Sign In</Text>
-        </Pressable>
-    )
-}
-
-export const SignIUpBtn: FC<IBtnProps> = ({handlePress}) => {
-    return (
-        <Pressable
-            onPress={handlePress}
-            style={style.register}
-        >
-            <Text style={style.text}>Sign Up</Text>
+            <Text
+              style={style.text}
+            >
+                {authType === 'login' ? 'Sign In!' : 'Sign Up now!'}
+            </Text>
         </Pressable>
     )
 }

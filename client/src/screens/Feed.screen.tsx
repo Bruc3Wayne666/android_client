@@ -1,23 +1,20 @@
-import React, { FC, useEffect, useState } from "react";
+import React, { FC, useEffect } from "react";
 import { ScrollView, StyleSheet, View } from "react-native";
 import { PostsContainer } from "../components/Feed/Posts.container";
 import { Loading } from "../components/Loading/Loading";
-import { useAppDispatch, useAppSelector } from "../hooks/redux";
-import { fetchPosts, post } from "../store/reducers/post/postAction";
-import { CameraButton, CreatePostButton } from "../components/Camera/CreatePost.button";
+import { useAppSelector } from "../hooks/redux";
+import { CreatePostButton } from "../components/Camera/CreatePost.button";
+import { useActions } from "../hooks/useActions";
 
-{/*<CameraButton*/}
-{/*  onPress={() => {navigation.navigate('Camera')}}*/}
-{/*/>*/}
 
-export const Feed: FC<any> = ({navigation}) => {
-  const dispatch = useAppDispatch();
+export const Feed: FC<any> = ({ navigation }) => {
+  const { fetchPosts } = useActions();
   const { token } = useAppSelector(state => state.authReducer);
   const { posts, isLoading } = useAppSelector(state => state.postReducer);
 
   useEffect(() => {
-    dispatch(fetchPosts(token));
-  }, [dispatch]);
+    fetchPosts(token);
+  }, []);
 
 
   return (
@@ -28,7 +25,9 @@ export const Feed: FC<any> = ({navigation}) => {
           <ScrollView>
             <PostsContainer posts={posts} />
           </ScrollView>
-          <CreatePostButton onPress={() => {navigation.navigate('CreatePost')}}/>
+          <CreatePostButton onPress={() => {
+            navigation.navigate("CreatePost");
+          }} />
         </>
       }
     </View>

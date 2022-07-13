@@ -1,14 +1,14 @@
-import { ImageBackground, StyleSheet, Text, TextInput, View } from "react-native";
+import { ImageBackground, StyleSheet, Text, View } from "react-native";
 import React, { FC, useState } from "react";
 import { TitleInput } from "../components/CreatePost/TitleInput";
 import { Form } from "../components/CreatePost/Form";
 import { PostContent } from "../components/CreatePost/PostContent";
 import { PostButton } from "../components/CreatePost/PostButton";
-import { useAppDispatch, useAppSelector } from "../hooks/redux";
-import { post } from "../store/reducers/post/postAction";
+import { useAppSelector } from "../hooks/redux";
+import { useActions } from "../hooks/useActions";
 
 export const CreatePostScreen: FC<any> = ({ navigation }) => {
-  const dispatch = useAppDispatch()
+  const { post } = useActions()
   const { token } = useAppSelector(state => state.authReducer)
   const [text, setText] = useState('')
   const [title, setTitle] = useState('')
@@ -19,7 +19,7 @@ export const CreatePostScreen: FC<any> = ({ navigation }) => {
   };
 
   const create = () => {
-    dispatch(post({token, title, text}))
+    post({token, title, text})
     navigation.goBack()
   }
 
