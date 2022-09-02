@@ -131,11 +131,13 @@ def reactNativeArchitectures() {
 }
 
 android {
+
     ndkVersion rootProject.ext.ndkVersion
 
     compileSdkVersion rootProject.ext.compileSdkVersion
 
     defaultConfig {
+        multiDexEnabled true // This code line
         missingDimensionStrategy 'react-native-camera', 'general'
         applicationId "com.client"
         minSdkVersion rootProject.ext.minSdkVersion
@@ -261,6 +263,7 @@ android {
 dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
 
+    implementation 'com.android.support:multidex:1.0.3' //enter the latest version
     //noinspection GradleDynamicVersion
     implementation "com.facebook.react:react-native:+"  // From node_modules
 

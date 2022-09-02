@@ -6,6 +6,7 @@ import { AuthPayloadType } from "../store/reducers/auth/authSlice";
 
 export class ApiService {
   static async login(email: string, password: string): Promise<AuthPayloadType> {
+    console.log(API_URL)
     const { data } = await axios.post<AuthPayloadType>(`${API_URL}/auth/login`, {
       email,
       password,
