@@ -1,6 +1,5 @@
 import React, { FC } from "react";
 import { AuthorizationScreen } from "./Authorization.screen";
-import { Feed } from "./Feed.screen";
 import { useAppSelector } from "../hooks/redux";
 import { createStackNavigator } from "@react-navigation/stack";
 import { CreatePostScreen } from "./CreatePost.screen";

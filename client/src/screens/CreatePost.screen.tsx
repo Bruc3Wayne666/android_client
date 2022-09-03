@@ -1,5 +1,5 @@
 import { ImageBackground, StyleSheet, Text, View } from "react-native";
-import React, { FC, useState } from "react";
+import React, {FC, useEffect, useState} from "react";
 import { TitleInput } from "../components/CreatePost/TitleInput";
 import { Form } from "../components/CreatePost/Form";
 import { PostContent } from "../components/CreatePost/PostContent";
@@ -8,6 +8,8 @@ import { useAppSelector } from "../hooks/redux";
 import { useActions } from "../hooks/useActions";
 import Icon from "react-native-vector-icons/AntDesign"
 import { useNavigation } from "@react-navigation/native";
+import * as RNFS from 'react-native-fs';
+
 
 
 export const CreatePostScreen: FC<any> = () => {
@@ -15,8 +17,14 @@ export const CreatePostScreen: FC<any> = () => {
   const { token } = useAppSelector(state => state.authReducer)
   const [text, setText] = useState('')
   const [title, setTitle] = useState('')
+  const [files, setFiles] = useState<RNFS.ReadDirItem[]>()
   const { goBack } = useNavigation()
 
+
+  const getFileContent = async (path: string) => {
+    const reader = await RNFS.readDir(path)
+    setFiles(reader)
+  }
 
   const cleanForm = () => {
     setText('')
@@ -41,6 +49,11 @@ export const CreatePostScreen: FC<any> = () => {
   const handleChangeTitle = (title: string) => {
     setTitle(title)
   }
+
+  useEffect(() => {
+    getFileContent(RNFS.DocumentDirectoryPath)
+    console.log(files)
+  }, [])
 
   return (
     <ImageBackground source={require("../assets/createPost/background.png")} style={style.screen}>

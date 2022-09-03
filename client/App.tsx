@@ -2,7 +2,7 @@ import React, { FC } from "react";
 import { Provider } from "react-redux";
 import { setupStore } from "./src/store/store";
 import { MainContainer } from "./src/screens/MainContainer";
-import { NavigationContainer } from "@react-navigation/native";
+import {DarkTheme, NavigationContainer} from "@react-navigation/native";
 import { LogBox } from "react-native";
 
 
@@ -26,7 +26,9 @@ const store = setupStore();
 const App: FC = () => {
   return (
     <Provider store={store}>
-      <NavigationContainer>
+      <NavigationContainer
+        theme={DarkTheme}
+      >
         <MainContainer />
       </NavigationContainer>
     </Provider>
